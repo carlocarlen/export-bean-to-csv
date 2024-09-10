@@ -1,12 +1,21 @@
 package dev.carlocarlen.opencsv.model;
 
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvDate;
+import com.opencsv.bean.CsvRecurse;
+
 import java.util.Date;
 
 public class Person {
 
+    @CsvBindByName
     private String firstName;
+    @CsvBindByName
     private String lastName;
+    @CsvDate("yyyy-MM-dd")
+    @CsvBindByName
     private Date birthdate;
+    @CsvRecurse
     private Address address;
 
     public Date getBirthdate() {
