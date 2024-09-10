@@ -1,5 +1,9 @@
 package dev.carlocarlen.opencsv;
 
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import dev.carlocarlen.opencsv.model.Person;
 import dev.carlocarlen.opencsv.model.PersonFactory;
 
@@ -12,10 +16,17 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         List<Person> persons = createPersons();
-        Writer fileWriter = new FileWriter("persons.csv");
 
+        try (Writer fileWriter = new FileWriter("persons.csv") ) {
+
+            StatefulBeanToCsv<Person> beanWriter = new StatefulBeanToCsvBuilder<Person>(fileWriter).build();
+            beanWriter.write(persons);
+
+        } catch (CsvRequiredFieldEmptyException | CsvDataTypeMismatchException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
