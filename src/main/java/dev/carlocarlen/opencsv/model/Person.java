@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class Person {
 
-    @CsvBindByName
+    @CsvBindByName(column = "firstName")
     private String firstName;
-    @CsvBindByName
+    @CsvBindByName(column = "lastName")
     private String lastName;
     @CsvDate("yyyy-MM-dd")
-    @CsvBindByName
+    @CsvBindByName(column = "birthdate")
     private Date birthdate;
     @CsvRecurse
     private Address address;

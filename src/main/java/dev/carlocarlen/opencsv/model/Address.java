@@ -3,12 +3,13 @@ package dev.carlocarlen.opencsv.model;
 import com.opencsv.bean.CsvBindByName;
 
 public class Address {
-    @CsvBindByName
-    private String street;
-    @CsvBindByName
+
+    @CsvBindByName(column = "address.zip")
     private Integer zip;
-    @CsvBindByName
+    @CsvBindByName(column = "address.city")
     private String city;
+    @CsvBindByName(column = "address.street")
+    private String street;
 
     public String getStreet() {
         return street;
