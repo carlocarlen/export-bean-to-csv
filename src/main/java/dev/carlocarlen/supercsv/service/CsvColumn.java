@@ -3,8 +3,9 @@ package dev.carlocarlen.supercsv.service;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 
 /**
- * Group the settings of a Column.
- * To avoid dealing with arrays CellProcessor, FieldMapping and Headers and the risk of swapping elements
+ * Wrapper class to group all settings of a CSV Column.
+ * To avoid dealing with arrays CellProcessor, FieldMapping and Headers
+ * and the risk of swapping elements
  */
 public class CsvColumn {
     private final String fieldMapping;

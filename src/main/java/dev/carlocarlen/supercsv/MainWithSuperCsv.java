@@ -2,10 +2,14 @@ package dev.carlocarlen.supercsv;
 
 import dev.carlocarlen.supercsv.model.Person;
 import dev.carlocarlen.supercsv.model.PersonFactory;
+import dev.carlocarlen.supercsv.service.CsvColumn;
+import dev.carlocarlen.supercsv.service.PersonCsvPrintService;
+import org.supercsv.cellprocessor.FmtDate;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,13 +18,28 @@ public class MainWithSuperCsv {
 
     public static void main(String[] args) {
         List<Person> persons = createPersons();
+        List<CsvColumn> csvColumns = personCsvColumns();
+        PersonCsvPrintService service = new PersonCsvPrintService(csvColumns);
 
         try (Writer fileWriter = new FileWriter("persons.csv") ) {
+
+            service.print(persons, fileWriter);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private static List<CsvColumn> personCsvColumns() {
+        return Arrays.asList(
+                CsvColumn.of("firstName").withHeader("Name"),
+                CsvColumn.of("lastName"),
+                CsvColumn.of("birthdate").withCellProcessor(new FmtDate("yyyy-MM-dd")),
+                CsvColumn.of("address.zip"),
+                CsvColumn.of("address.street"),
+                CsvColumn.of("address.city")
+        );
     }
 
     private static List<Person> createPersons() {
