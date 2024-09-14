@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Use CsvDozerBeanWriter with a list of CsvColumns, in order to avoid dealing with arrays
  */
-public class CsvColumnWriterWithDozer {
+public class CsvColumnWriterWithDozer implements AutoCloseable {
 
     private final List<CsvColumn> csvColumns;
     private final CsvDozerBeanWriter csvDozerBeanWriter;
